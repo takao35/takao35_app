@@ -12,6 +12,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final MapController _mapController = MapController();
+
+  void _moveToCenter() {
+    _mapController.move(
+      LatLng(35.628, 139.255), // 高尾山中心
+      14.0, // ズームイン
+    );
+  }
+
+  void _moveToWide() {
+    _mapController.move(
+      LatLng(35.625, 139.243), // 高尾山＋城山の中間あたり
+      13.0, // ズームアウト
+    );
+  }
+
   final List<Polyline> _polylines = [];
 
   @override
@@ -21,14 +37,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _loadRoutes() async {
-    for (final path in routeGpxPaths) {
-      final points = await loadGpxRoute(path);
+    for (final route in routeList) {
+      final points = await loadGpxRoute(route.path);
       setState(() {
         _polylines.add(
           Polyline(
             points: points,
             strokeWidth: 2.0,
-            color: Colors.grey.withOpacity(0.6),
+            color: route.color.withOpacity(0.5), // ← 色付きで半透明
           ),
         );
       });
@@ -71,22 +87,60 @@ class _HomePageState extends State<HomePage> {
           // 地図エリア（上1/3）
           Flexible(
             flex: 1,
-            child: FlutterMap(
-              options: MapOptions(
-                initialCenter: LatLng(35.625, 139.243),
-                initialZoom: 14,
-              ),
+            child: Stack(
               children: [
-                TileLayer(
-                  urlTemplate:
-                      'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
-                  userAgentPackageName: 'jp.takaosan-go.takao35_app',
+                FlutterMap(
+                  mapController: _mapController,
+                  options: MapOptions(
+                    initialCenter: LatLng(35.625, 139.243),
+                    initialZoom: 13.0,
+                  ),
+                  children: [
+                    TileLayer(
+                      urlTemplate:
+                          'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
+                      userAgentPackageName: 'com.example.takao35',
+                    ),
+                    PolylineLayer(polylines: _polylines),
+                  ],
                 ),
-                PolylineLayer(polylines: _polylines),
+                Positioned(
+                  top: 8,
+                  left: 8,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ElevatedButton(
+                        onPressed: _moveToCenter,
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          textStyle: const TextStyle(fontSize: 12),
+                          minimumSize: const Size(80, 32),
+                        ),
+                        child: const Text('中心部'),
+                      ),
+                      const SizedBox(height: 6),
+                      ElevatedButton(
+                        onPressed: _moveToWide,
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          textStyle: const TextStyle(fontSize: 12),
+                          minimumSize: const Size(80, 32),
+                        ),
+                        child: const Text('広域表示'),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
-
           // 下部エリア（下2/3）
           Flexible(
             flex: 2,
