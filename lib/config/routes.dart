@@ -15,10 +15,10 @@ final List<RouteInfo> routeList = [
   RouteInfo('assets/routes/route04.gpx', '4号路', Colors.orange),
   RouteInfo('assets/routes/route06.gpx', '6号路', Colors.purple),
   RouteInfo('assets/routes/route07.gpx', '稲荷山', Colors.brown),
-  RouteInfo('assets/routes/route08.gpx', '裏高尾', Colors.teal),
-  RouteInfo('assets/routes/route09.gpx', '蛇滝', Colors.cyan),
-  RouteInfo('assets/routes/route10.gpx', '琵琶滝', Colors.indigo),
-  RouteInfo('assets/routes/route11.gpx', '高尾山頂ルート', Colors.deepOrange),
+  RouteInfo('assets/routes/route08.gpx', '高尾山から城山', Colors.teal),
+  RouteInfo('assets/routes/route09.gpx', '城山から景信山', Colors.cyan),
+  RouteInfo('assets/routes/route10.gpx', '小仏峠アプローチ', Colors.indigo),
+  RouteInfo('assets/routes/route11.gpx', '景信山アプローチ', Colors.deepOrange),
 ];
 
 // lib/config/route_config.dart
