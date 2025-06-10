@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "630868221643",
+    "project_id": "takao35-app",
+    "storage_bucket": "takao35-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630868221643:android:7e8ccaadd564432370054e",
+        "android_client_info": {
+          "package_name": "com.example.takao35_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0gIL8sOPb1VpiM6mMUGqd_FL0-m_UeEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

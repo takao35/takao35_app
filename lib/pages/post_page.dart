@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/flutter_map.dart'; // MapControllerを使うために残す
 import 'package:latlong2/latlong.dart';
+import '../widgets/map_widget.dart'; // 新しく作った共通ウィジェットをインポート
 
 class PostPage extends StatefulWidget {
   const PostPage({super.key});
@@ -22,15 +23,13 @@ class _PostPageState extends State<PostPage> {
         children: [
           SizedBox(
             height: screenHeight * 0.33,
-            child: FlutterMap(
+            child: CommonMapWidget(
+              // ここをCommonMapWidgetに置き換え
               mapController: _mapController,
-              options: MapOptions(center: LatLng(35.625, 139.243), zoom: 13.0),
+              initialCenter: LatLng(35.625, 139.243),
+              initialZoom: 13.0,
               children: [
-                TileLayer(
-                  urlTemplate:
-                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                  subdomains: const ['a', 'b', 'c'],
-                ),
+                OpenStreetMapTileLayer(), // OpenStreetMapのタイルレイヤーを使用
               ],
             ),
           ),
