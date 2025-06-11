@@ -35,8 +35,8 @@ class _CommonMapWidgetState extends State<CommonMapWidget> {
 
   void _moveToCenter() {
     _internalMapController.move(
-      LatLng(35.628, 139.255), // 高尾山中心
-      14.0, // ズームイン
+      LatLng(35.6285, 139.255), // 高尾山中心
+      13.8, // ズームイン
     );
   }
 

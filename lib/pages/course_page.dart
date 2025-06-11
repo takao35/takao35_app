@@ -6,7 +6,7 @@ class CoursePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('コース別情報')),
+      // appBar: AppBar(title: const Text('コース別情報')),
       body: const Center(child: Text('高尾山のコース別情報が表示されます。')),
     );
   }
