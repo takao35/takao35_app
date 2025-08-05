@@ -1,5 +1,6 @@
 // lib/main.dart の一部
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart'; // kIsWeb を使用するためにfoundation.dartをインポート
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:takao35_app/firebase_options.dart';
@@ -81,6 +82,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _register() async {
+    // kIsWeb が true (Web版) の場合は、この処理をスキップする
+    if (kIsWeb) {
+      return;
+    }
+
     try {
       await _auth.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
@@ -97,6 +103,40 @@ class _LoginPageState extends State<LoginPage> {
         message = 'このメールアドレスは既に使用されています。';
       } else if (e.code == 'invalid-email') {
         message = 'メールアドレスの形式が正しくありません。';
+      } else if (e.code == 'network-request-failed') {
+        message = 'ネットワークエラーが発生しました。';
+      }
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(message)));
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('予期せぬエラーが発生しました: $e')));
+    }
+  }
+
+  // パスワード再設定メールを送信する関数
+  void _resetPassword() async {
+    // メールアドレスが入力されているか確認
+    if (_emailController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('メールアドレスを入力してください。')));
+      return;
+    }
+
+    try {
+      await _auth.sendPasswordResetEmail(email: _emailController.text.trim());
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('パスワード再設定用のメールを送信しました。')));
+    } on FirebaseAuthException catch (e) {
+      String message = 'パスワード再設定メールの送信に失敗しました。';
+      if (e.code == 'invalid-email') {
+        message = 'メールアドレスの形式が正しくありません。';
+      } else if (e.code == 'user-not-found') {
+        message = '入力されたメールアドレスのユーザーは見つかりませんでした。';
       } else if (e.code == 'network-request-failed') {
         message = 'ネットワークエラーが発生しました。';
       }
@@ -132,7 +172,19 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 24),
             ElevatedButton(onPressed: _login, child: const Text('ログイン')),
             const SizedBox(height: 16),
-            TextButton(onPressed: _register, child: const Text('新規登録はこちら')),
+            // Web版かモバイル版かでボタンの表示を切り替える
+            if (!kIsWeb)
+              TextButton(onPressed: _register, child: const Text('新規登録はこちら'))
+            else
+              const Text(
+                'Web版からは新規登録できません',
+                style: TextStyle(color: Colors.grey),
+              ),
+            const SizedBox(height: 16),
+            TextButton(
+              onPressed: _resetPassword,
+              child: const Text('パスワードを忘れた場合'),
+            ),
           ],
         ),
       ),
@@ -140,3 +192,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 // ****** ここまでが LoginPage の内容です ******
+// ```
+// ### 変更点
+// * `import 'package:flutter/foundation.dart';` を追加して、`kIsWeb`を使えるようにしました。
+// * `_register`メソッドの先頭に`if (kIsWeb) { return; }`を追加し、Web版での新規登録処理を無効化しました。
+// * `build`メソッド内で、`kIsWeb`の値をチェックし、Web版では「新規登録はこちら」ボタンの代わりに、無効であることを示すテキストを表示するように変更しました。
+
+// この修正によって、Webからアクセスしたユーザーは既存のアカウントでログインすることのみが可能になり、新規登録はスマートフォンからしか行えなくなり
