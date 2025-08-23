@@ -1,9 +1,32 @@
+// lib/map_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:geolocator/geolocator.dart'; // ← 追加
 
-class MapPage extends StatelessWidget {
+class MapPage extends StatefulWidget {
   const MapPage({super.key});
+  @override
+  State<MapPage> createState() => _MapPageState();
+}
+
+class _MapPageState extends State<MapPage> {
+  final _mapController = MapController();
+
+  Future<LatLng?> _getCurrentPosition() async {
+    final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) return null;
+
+    var permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) return null;
+    }
+    if (permission == LocationPermission.deniedForever) return null;
+
+    final p = await Geolocator.getCurrentPosition();
+    return LatLng(p.latitude, p.longitude);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,36 +38,21 @@ class MapPage extends StatelessWidget {
           Flexible(
             flex: 1,
             child: FlutterMap(
+              mapController: _mapController,
               options: MapOptions(
-                initialCenter: LatLng(35.625, 139.243),
-                initialZoom: 13.0,
+                initialCenter: const LatLng(35.6259, 139.2430), // 高尾山周辺で仮
+                initialZoom: 13,
               ),
               children: [
                 TileLayer(
                   urlTemplate:
-                      'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
-                  subdomains: const ['a', 'b', 'c'],
-                  userAgentPackageName: 'com.example.takao35',
-                ),
-                MarkerLayer(
-                  markers: [
-                    Marker(
-                      point: LatLng(35.625, 139.243),
-                      width: 40,
-                      height: 40,
-                      child: const Icon(
-                        Icons.place,
-                        size: 40,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ],
+                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                  subdomains: ['a', 'b', 'c'],
                 ),
               ],
             ),
           ),
-
-          // 下：その他のUI（画面の2/3）
+          // 下：新着情報（画面の2/3）
           Flexible(
             flex: 2,
             child: Container(
@@ -55,6 +63,20 @@ class MapPage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final pos = await _getCurrentPosition();
+          if (pos != null) {
+            _mapController.move(pos, 17); // だいたい半径500m相当のズーム
+          } else {
+            if (!mounted) return;
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(const SnackBar(content: Text('現在地を取得できませんでした')));
+          }
+        },
+        child: const Icon(Icons.my_location),
       ),
     );
   }
