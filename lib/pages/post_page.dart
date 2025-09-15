@@ -32,7 +32,7 @@ class _PostPageState extends State<PostPage> {
             Polyline(
               points: points,
               strokeWidth: 2.0,
-              color: route.color.withOpacity(0.5),
+              color: route.color.withValues(alpha: 0.5),
             ),
           );
         });

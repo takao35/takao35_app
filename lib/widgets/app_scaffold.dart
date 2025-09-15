@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart'; // ログアウトのため�
 
 // 各メニューに対応するページをインポート
 import '../pages/home_page_content.dart'; // メインコンテンツを表示するページ
+import '../pages/info_page.dart';
 import '../pages/course_page.dart';
 import '../pages/nature_page.dart';
-import '../pages/post_page.dart';
 import '../pages/my_page.dart'; // マイページ（将来の拡張用）
 
 class AppScaffold extends StatefulWidget {
@@ -30,18 +30,18 @@ class _AppScaffoldState extends State<AppScaffold> {
     // ここでHomePageの本体部分を担うウィジェットを指定
     // 今回はhome_page.dartのコンテンツ部分をそのまま使います
     const HomePageContent(), // 後でHomePageの内部を切り出す
+    const InfoPage(), // お役立ち情報ページ（仮）
     const CoursePage(),
     const NaturePage(),
-    const PostPage(),
     const MyPage(), // マイページ（将来の拡張用）
   ];
 
   // AppBarのタイトルリスト
   final List<String> _appBarTitles = const [
     '高尾山GO！', // メイン
+    'お役立ち情報', // お役立ち情報
     '高尾山のコース別情報', // コース別
     '高尾山の自然', // 自然
-    '高尾山の写真投稿', // 投稿
     'マイページ', // マイページ（将来の拡張用）
   ];
 
@@ -93,9 +93,9 @@ class _AppScaffoldState extends State<AppScaffold> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'メイン'),
+          BottomNavigationBarItem(icon: Icon(Icons.info), label: 'お役立ち情報'),
           BottomNavigationBarItem(icon: Icon(Icons.hiking), label: 'コース別'),
           BottomNavigationBarItem(icon: Icon(Icons.eco), label: '自然'),
-          BottomNavigationBarItem(icon: Icon(Icons.add_a_photo), label: '投稿'),
           BottomNavigationBarItem(icon: Icon(Icons.book), label: 'マイページ'),
         ],
         currentIndex: _selectedIndex,
@@ -126,8 +126,8 @@ class _AppScaffoldState extends State<AppScaffold> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.hiking),
-              title: const Text('コース別'),
+              leading: const Icon(Icons.info),
+              title: const Text('お役立ち情報'),
               selected: _selectedIndex == 1,
               onTap: () {
                 _onItemTapped(1);
@@ -135,8 +135,8 @@ class _AppScaffoldState extends State<AppScaffold> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.eco),
-              title: const Text('自然'),
+              leading: const Icon(Icons.hiking),
+              title: const Text('コース別'),
               selected: _selectedIndex == 2,
               onTap: () {
                 _onItemTapped(2);
@@ -144,8 +144,8 @@ class _AppScaffoldState extends State<AppScaffold> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.add_a_photo),
-              title: const Text('投稿'),
+              leading: const Icon(Icons.eco),
+              title: const Text('自然'),
               selected: _selectedIndex == 3,
               onTap: () {
                 _onItemTapped(3);

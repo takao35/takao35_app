@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:takao35_app/firebase_options.dart'; // あなたのプロジェクト名に合わせてパスを調整
 import 'package:flutter/material.dart'; // MaterialAppなどを使っている場合
-import 'package:flutter/widgets.dart'; // ここを追加！
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // この行がエラーの原因

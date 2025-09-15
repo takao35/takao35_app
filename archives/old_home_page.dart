@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import '../utilities/gpx_loader.dart';
-import '../widgets/map_widget.dart'; // 共通地図ウィジェットをインポート
-import '../config/routes.dart';
+import '../lib/utilities/gpx_loader.dart';
+import '../lib/widgets/map_widget.dart'; // 共通地図ウィジェットをインポート
+import '../lib/config/routes.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
           Polyline(
             points: points,
             strokeWidth: 2.0,
-            color: route.color.withOpacity(0.5), // ← 色付きで半透明
+            color: route.color.withValues(alpha: 0.5), // ← 色付きで半透明
           ),
         );
       });

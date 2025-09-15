@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import '../widgets/map_widget.dart'; // 共通地図ウィジェット
 import 'package:latlong2/latlong.dart';
 
-class CoursePage extends StatelessWidget {
-  const CoursePage({super.key});
+class InfoPage extends StatelessWidget {
+  const InfoPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +29,7 @@ class CoursePage extends StatelessWidget {
               color: Colors.grey[200],
               child: const Center(
                 child: Text(
-                  '高尾山のコース別情報が表示されます。',
+                  '高尾山のお役立ち情報が表示されます。',
                   style: TextStyle(fontSize: 16),
                 ),
               ),

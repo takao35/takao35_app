@@ -71,10 +71,12 @@ class _LoginPageState extends State<LoginPage> {
       } else if (e.code == 'network-request-failed') {
         message = 'ネットワークエラーが発生しました。';
       }
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(message)));
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('予期せぬエラーが発生しました: $e')));
@@ -92,6 +94,7 @@ class _LoginPageState extends State<LoginPage> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('新規登録が完了しました！')));
@@ -106,10 +109,12 @@ class _LoginPageState extends State<LoginPage> {
       } else if (e.code == 'network-request-failed') {
         message = 'ネットワークエラーが発生しました。';
       }
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(message)));
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('予期せぬエラーが発生しました: $e')));
@@ -120,6 +125,7 @@ class _LoginPageState extends State<LoginPage> {
   void _resetPassword() async {
     // メールアドレスが入力されているか確認
     if (_emailController.text.trim().isEmpty) {
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('メールアドレスを入力してください。')));
@@ -128,6 +134,7 @@ class _LoginPageState extends State<LoginPage> {
 
     try {
       await _auth.sendPasswordResetEmail(email: _emailController.text.trim());
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('パスワード再設定用のメールを送信しました。')));
@@ -140,10 +147,12 @@ class _LoginPageState extends State<LoginPage> {
       } else if (e.code == 'network-request-failed') {
         message = 'ネットワークエラーが発生しました。';
       }
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(message)));
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('予期せぬエラーが発生しました: $e')));
