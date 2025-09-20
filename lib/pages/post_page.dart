@@ -1,5 +1,14 @@
+<<<<<<< HEAD
 // lib/pages/post_page.dart
 import 'package:flutter/material.dart';
+=======
+import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart'; // MapControllerを使うために残す
+import 'package:latlong2/latlong.dart';
+import '../widgets/map_widget.dart'; // 新しく作った共通ウィジェットをインポート
+import '../config/routes.dart'; // ルート情報を取得するための設定ファイル
+import '../utilities/gpx_loader.dart'; // GPXファイルの読み込みユーティリティ
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
 
 class PostPage extends StatefulWidget {
   const PostPage({super.key});
@@ -9,6 +18,7 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPageState extends State<PostPage> {
+<<<<<<< HEAD
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   String _selectedCategory = '風景';
@@ -19,10 +29,38 @@ class _PostPageState extends State<PostPage> {
     _titleController.dispose();
     _descriptionController.dispose();
     super.dispose();
+=======
+  final MapController _mapController = MapController();
+  final List<Polyline> _polylines = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRoutes();
+  }
+
+  Future<void> _loadRoutes() async {
+    for (final route in routeList) {
+      final points = await loadGpxRoute(route.path);
+      if (mounted) {
+        // ウィジェットがまだマウントされているか確認
+        setState(() {
+          _polylines.add(
+            Polyline(
+              points: points,
+              strokeWidth: 2.0,
+              color: route.color.withValues(alpha: 0.5),
+            ),
+          );
+        });
+      }
+    }
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
   }
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return Container(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -244,12 +282,39 @@ class _PostPageState extends State<PostPage> {
                   ),
                 ],
               ),
+=======
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    return Scaffold(
+      // appBar: AppBar(title: const Text('高尾山 投稿')),
+      body: Column(
+        children: [
+          SizedBox(
+            height: screenHeight * 0.25,
+            child: CommonMapWidget(
+              // ここをCommonMapWidgetに置き換え
+              mapController: _mapController,
+              initialCenter: LatLng(35.625, 139.245),
+              initialZoom: 13.0,
+              children: [
+                OpenStreetMapTileLayer(), // OpenStreetMapのタイルレイヤーを使用
+                PolylineLayer(polylines: _polylines),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              color: Colors.grey[100],
+              child: const Text('ここに投稿欄が入ります'),
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
             ),
           ),
         ],
       ),
     );
   }
+<<<<<<< HEAD
 
   void _submitPost() {
     // 投稿処理のロジック
@@ -272,4 +337,6 @@ class _PostPageState extends State<PostPage> {
       _selectedCategory = '風景';
     });
   }
+=======
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
 }

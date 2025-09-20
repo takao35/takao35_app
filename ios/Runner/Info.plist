@@ -26,6 +26,11 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+<<<<<<< HEAD
+=======
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>現在地を表示するために位置情報を使用します</string>
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

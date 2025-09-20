@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 // lib/pages/info_page.dart
 import 'package:flutter/material.dart';
 import '../widgets/common_page_layout.dart';
+=======
+import 'package:flutter/material.dart';
+import '../widgets/map_widget.dart'; // 共通地図ウィジェット
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
 import 'package:latlong2/latlong.dart';
 
 class InfoPage extends StatelessWidget {
@@ -8,6 +13,7 @@ class InfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return CommonPageLayout(
       mapCenter: const LatLng(35.6259, 139.2430),
       mapZoom: 13.0,
@@ -64,12 +70,41 @@ class InfoPage extends StatelessWidget {
                 _buildEventCard('初詣', '1月1日〜3日', '薬王院での初詣。多くの参拝客で賑わいます。'),
                 _buildEventCard('火渡り祭', '3月第2日曜日', '薬王院の伝統的な火渡り祭です。'),
               ],
+=======
+    return Scaffold(
+      body: Column(
+        children: [
+          // 上：地図（画面の1/3）
+          Flexible(
+            flex: 1,
+            child: CommonMapWidget(
+              initialCenter: const LatLng(35.6259, 139.2430),
+              initialZoom: 13.0,
+              children: [
+                GsiTileLayer(),
+                // 必要なら他のLayerも追加
+              ],
+            ),
+          ),
+          // 下：お役立ち情報（画面の2/3）
+          Flexible(
+            flex: 2,
+            child: Container(
+              color: Colors.grey[200],
+              child: const Center(
+                child: Text(
+                  '高尾山のお役立ち情報が表示されます。',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
             ),
           ),
         ],
       ),
     );
   }
+<<<<<<< HEAD
 
   // トイレ情報のコンテンツ
   static Widget _buildToiletContent() {
@@ -190,4 +225,6 @@ class InfoPage extends StatelessWidget {
       ),
     );
   }
+=======
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
 }

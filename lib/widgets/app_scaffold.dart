@@ -25,21 +25,41 @@ class _AppScaffoldState extends State<AppScaffold> {
   late int _selectedIndex; // 現在選択されているタブのインデックス
 
   // 各タブに対応するページリスト
+<<<<<<< HEAD
   final List<Widget> _widgetOptions = <Widget>[
     const HomePageContent(), // インデックス0: メイン
     const InfoPage(), // インデックス1: お役立ち情報
     const CoursePage(), // インデックス2: コース別
     const NaturePage(), // インデックス3: 自然
     const MyPage(), // インデックス4: マイページ
+=======
+  // 注意: HomePageをここでは、MainContentPageとして扱います
+  final List<Widget> _widgetOptions = <Widget>[
+    // ここでHomePageの本体部分を担うウィジェットを指定
+    // 今回はhome_page.dartのコンテンツ部分をそのまま使います
+    const HomePageContent(), // 後でHomePageの内部を切り出す
+    const InfoPage(), // お役立ち情報ページ（仮）
+    const CoursePage(),
+    const NaturePage(),
+    const MyPage(), // マイページ（将来の拡張用）
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
   ];
 
   // AppBarのタイトルリスト
   final List<String> _appBarTitles = const [
+<<<<<<< HEAD
     '高尾山GO！', // インデックス0: メイン
     'お役立ち情報', // インデックス1: お役立ち情報
     '高尾山のコース別情報', // インデックス2: コース別
     '高尾山の自然', // インデックス3: 自然
     'マイページ', // インデックス4: マイページ
+=======
+    '高尾山GO！', // メイン
+    'お役立ち情報', // お役立ち情報
+    '高尾山のコース別情報', // コース別
+    '高尾山の自然', // 自然
+    'マイページ', // マイページ（将来の拡張用）
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
   ];
 
   @override
@@ -53,6 +73,13 @@ class _AppScaffoldState extends State<AppScaffold> {
     setState(() {
       _selectedIndex = index;
     });
+<<<<<<< HEAD
+=======
+    // ドロワーが現在開いている場合は閉じる
+    // if (Scaffold.of(context).hasDrawer && Scaffold.of(context).isDrawerOpen) {
+    //   Navigator.pop(context); // ドロワーを閉じる
+    // }
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
   }
 
   @override
@@ -82,7 +109,11 @@ class _AppScaffoldState extends State<AppScaffold> {
           ),
         ],
       ),
+<<<<<<< HEAD
       body: _widgetOptions.elementAt(_selectedIndex),
+=======
+      body: _widgetOptions.elementAt(_selectedIndex), // 選択されたタブのページを表示
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'メイン'),
@@ -114,8 +145,13 @@ class _AppScaffoldState extends State<AppScaffold> {
               title: const Text('メイン'),
               selected: _selectedIndex == 0,
               onTap: () {
+<<<<<<< HEAD
                 Navigator.pop(context);
                 _onItemTapped(0);
+=======
+                _onItemTapped(0);
+                Navigator.pop(context); // ここでドロワーを閉じる
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
               },
             ),
             ListTile(
@@ -123,8 +159,13 @@ class _AppScaffoldState extends State<AppScaffold> {
               title: const Text('お役立ち情報'),
               selected: _selectedIndex == 1,
               onTap: () {
+<<<<<<< HEAD
                 Navigator.pop(context);
                 _onItemTapped(1);
+=======
+                _onItemTapped(1);
+                Navigator.pop(context); // ここでドロワーを閉じる
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
               },
             ),
             ListTile(
@@ -132,8 +173,13 @@ class _AppScaffoldState extends State<AppScaffold> {
               title: const Text('コース別'),
               selected: _selectedIndex == 2,
               onTap: () {
+<<<<<<< HEAD
                 Navigator.pop(context);
                 _onItemTapped(2);
+=======
+                _onItemTapped(2);
+                Navigator.pop(context); // ここでドロワーを閉じる
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
               },
             ),
             ListTile(
@@ -141,8 +187,13 @@ class _AppScaffoldState extends State<AppScaffold> {
               title: const Text('自然'),
               selected: _selectedIndex == 3,
               onTap: () {
+<<<<<<< HEAD
                 Navigator.pop(context);
                 _onItemTapped(3);
+=======
+                _onItemTapped(3);
+                Navigator.pop(context); // ここでドロワーを閉じる
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
               },
             ),
             ListTile(
@@ -150,8 +201,13 @@ class _AppScaffoldState extends State<AppScaffold> {
               title: const Text('マイページ'),
               selected: _selectedIndex == 4,
               onTap: () {
+<<<<<<< HEAD
                 Navigator.pop(context);
                 _onItemTapped(4);
+=======
+                _onItemTapped(4);
+                Navigator.pop(context); // ここでドロワーを閉じる
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
               },
             ),
             const Divider(),

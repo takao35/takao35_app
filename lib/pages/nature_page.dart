@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // lib/pages/nature_page.dart
+=======
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
 import 'package:flutter/material.dart';
 import '../widgets/map_widget.dart'; // 共通地図ウィジェット
 import 'package:latlong2/latlong.dart';

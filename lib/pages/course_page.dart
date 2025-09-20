@@ -1,10 +1,16 @@
+<<<<<<< HEAD
 // lib/pages/course_page.dart
 import 'package:flutter/material.dart';
 import '../widgets/common_page_layout.dart';
+=======
+import 'package:flutter/material.dart';
+import '../widgets/map_widget.dart'; // 共通地図ウィジェット
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
 import 'package:latlong2/latlong.dart';
 
 class CoursePage extends StatelessWidget {
   const CoursePage({super.key});
+<<<<<<< HEAD
 
   @override
   Widget build(BuildContext context) {
@@ -174,6 +180,35 @@ class CoursePage extends StatelessWidget {
                   const SizedBox(height: 8),
                   Text(_getHighlights(courseName)),
                 ],
+=======
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          // 上：地図（画面の1/3）
+          Flexible(
+            flex: 1,
+            child: CommonMapWidget(
+              initialCenter: const LatLng(35.6259, 139.2430),
+              initialZoom: 13.0,
+              children: [
+                GsiTileLayer(),
+                // 必要なら他のLayerも追加
+              ],
+            ),
+          ),
+          // 下：お役立ち情報（画面の2/3）
+          Flexible(
+            flex: 2,
+            child: Container(
+              color: Colors.grey[200],
+              child: const Center(
+                child: Text(
+                  '高尾山のコース別情報が表示されます。',
+                  style: TextStyle(fontSize: 16),
+                ),
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
               ),
             ),
           ),
@@ -181,6 +216,7 @@ class CoursePage extends StatelessWidget {
       ),
     );
   }
+<<<<<<< HEAD
 
   // 情報行を作成するヘルパーメソッド
   static Widget _buildInfoRow(String label, String value, IconData icon) {
@@ -215,4 +251,6 @@ class CoursePage extends StatelessWidget {
         return '自然豊かな高尾山の魅力';
     }
   }
+=======
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
 }

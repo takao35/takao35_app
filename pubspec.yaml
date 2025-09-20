@@ -53,7 +53,11 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+<<<<<<< HEAD
   flutter_launcher_icons: ^0.13.1
+=======
+
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -105,9 +109,13 @@ flutter:
   #         weight: 700
   #
   # For details regarding fonts from package dependencies,
+<<<<<<< HEAD
   # see https://flutter.dev/to/font-from-packagelutter
 
 flutter_launcher_icons:
   android: true
   ios: true
   image_path: "assets/icon/takao35_logo.png"
+=======
+  # see https://flutter.dev/to/font-from-package
+>>>>>>> cc911945a0031f0b4e43391d2b661c42edb2cfb6
